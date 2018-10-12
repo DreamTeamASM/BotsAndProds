@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище BotsAndProdsModelContainer" CdmEntityContainer="BotsAndProdsEntities1">
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="BotsAndProdsModel.Products">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AnswerOfSystem">
+      <EntityTypeMapping TypeName="BotsAndProdsModel.AnswerOfSystem">
+        <MappingFragment StoreEntitySet="AnswerOfSystem">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Request" ColumnName="Request" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customer">
+      <EntityTypeMapping TypeName="BotsAndProdsModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Question_Of_Customer">
+      <EntityTypeMapping TypeName="BotsAndProdsModel.Question_Of_Customer">
+        <MappingFragment StoreEntitySet="Question_Of_Customer">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Request">
+      <EntityTypeMapping TypeName="BotsAndProdsModel.Request">
+        <MappingFragment StoreEntitySet="Request">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="Product" ColumnName="Product" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="DateOfReq" ColumnName="DateOfReq" />
+          <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+          <ScalarProperty Name="IsDelivered" ColumnName="IsDelivered" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="BotsAndProdsModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Authorize" FunctionName="Хранилище BotsAndProdsModel.Authorize">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BotsAndProdsModel.Authorize_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Change_Amount_Of_Product" FunctionName="Хранилище BotsAndProdsModel.Change_Amount_Of_Product" />
+    <FunctionImportMapping FunctionImportName="Get_Customer" FunctionName="Хранилище BotsAndProdsModel.Get_Customer">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BotsAndProdsModel.Get_Customer_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_Customers" FunctionName="Хранилище BotsAndProdsModel.Get_Customers">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BotsAndProdsModel.Get_Customers_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_Product_By_ID" FunctionName="Хранилище BotsAndProdsModel.Get_Product_By_ID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BotsAndProdsModel.Get_Product_By_ID_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_Products" FunctionName="Хранилище BotsAndProdsModel.Get_Products">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BotsAndProdsModel.Get_Products_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_Request_By_Client_And_Date" FunctionName="Хранилище BotsAndProdsModel.Get_Request_By_Client_And_Date">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BotsAndProdsModel.Get_Request_By_Client_And_Date_Result">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Name1" ColumnName="Name1" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_User_ById" FunctionName="Хранилище BotsAndProdsModel.Get_User_ById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BotsAndProdsModel.Get_User_ById_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_Users" FunctionName="Хранилище BotsAndProdsModel.Get_Users">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BotsAndProdsModel.Get_Users_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Insert_Customer" FunctionName="Хранилище BotsAndProdsModel.Insert_Customer" />
+    <FunctionImportMapping FunctionImportName="Insert_Product" FunctionName="Хранилище BotsAndProdsModel.Insert_Product" />
+  </EntityContainerMapping>
+</Mapping>

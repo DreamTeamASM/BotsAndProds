@@ -1,0 +1,484 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище BotsAndProdsModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "BotsAndProds.dbo.AnswerOfSystem" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="AnswerOfSystem">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Request" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Request" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "BotsAndProds.dbo.Customer" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="12" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Price" Type="real" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "BotsAndProds.dbo.Question_Of_Customer" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Question_Of_Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Question" />
+            <PropertyRef Name="Answer" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="Question" Type="varchar(max)" Nullable="false" />
+          <Property Name="Answer" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "BotsAndProds.dbo.Request" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Customer" />
+            <PropertyRef Name="Product" />
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="DateOfReq" />
+            <PropertyRef Name="IsConfirmed" />
+            <PropertyRef Name="IsDelivered" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer" Type="bigint" Nullable="false" />
+          <Property Name="Product" Type="bigint" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="DateOfReq" Type="date" Nullable="false" />
+          <Property Name="IsConfirmed" Type="tinyint" Nullable="false" />
+          <Property Name="IsDelivered" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "BotsAndProds.dbo.User" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Login" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Function Name="Authorize" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="login" Type="varchar" Mode="In" />
+          <Parameter Name="pass" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Change_Amount_Of_Product" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+          <Parameter Name="Amount" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Get_Customer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Get_Customers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Get_Product_By_ID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Get_Products" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Get_Request_By_Client_And_Date" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClientId" Type="int" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
+        </Function>
+        <Function Name="Get_User_ById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Get_Users" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Insert_Customer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="phoneNumber" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Insert_Product" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="Price" Type="real" Mode="In" />
+        </Function>
+        <EntityContainer Name="Хранилище BotsAndProdsModelContainer">
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AnswerOfSystem" EntityType="Self.AnswerOfSystem" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AnswerOfSystem].[ID] AS [ID], 
+    [AnswerOfSystem].[Request] AS [Request]
+    FROM [dbo].[AnswerOfSystem] AS [AnswerOfSystem]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Customer" EntityType="Self.Customer" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Customer].[ID] AS [ID], 
+    [Customer].[Name] AS [Name], 
+    [Customer].[PhoneNumber] AS [PhoneNumber]
+    FROM [dbo].[Customer] AS [Customer]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Question_Of_Customer" EntityType="Self.Question_Of_Customer" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Question_Of_Customer].[ID] AS [ID], 
+    [Question_Of_Customer].[Question] AS [Question], 
+    [Question_Of_Customer].[Answer] AS [Answer]
+    FROM [dbo].[Question_Of_Customer] AS [Question_Of_Customer]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Request" EntityType="Self.Request" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Request].[ID] AS [ID], 
+    [Request].[Customer] AS [Customer], 
+    [Request].[Product] AS [Product], 
+    [Request].[Amount] AS [Amount], 
+    [Request].[DateOfReq] AS [DateOfReq], 
+    [Request].[IsConfirmed] AS [IsConfirmed], 
+    [Request].[IsDelivered] AS [IsDelivered]
+    FROM [dbo].[Request] AS [Request]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="User" EntityType="Self.User" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [User].[ID] AS [ID], 
+    [User].[Login] AS [Login], 
+    [User].[Password] AS [Password], 
+    [User].[Name] AS [Name]
+    FROM [dbo].[User] AS [User]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BotsAndProdsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Price" Type="Single" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AnswerOfSystem">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Request" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Request" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Question_Of_Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Question" />
+            <PropertyRef Name="Answer" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Answer" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Customer" />
+            <PropertyRef Name="Product" />
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="DateOfReq" />
+            <PropertyRef Name="IsConfirmed" />
+            <PropertyRef Name="IsDelivered" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer" Type="Int64" Nullable="false" />
+          <Property Name="Product" Type="Int64" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="DateOfReq" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsConfirmed" Type="Byte" Nullable="false" />
+          <Property Name="IsDelivered" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Login" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="BotsAndProdsEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Products" EntityType="Self.Products" />
+          <EntitySet Name="AnswerOfSystem" EntityType="Self.AnswerOfSystem" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" />
+          <EntitySet Name="Question_Of_Customer" EntityType="Self.Question_Of_Customer" />
+          <EntitySet Name="Request" EntityType="Self.Request" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <FunctionImport Name="Authorize" ReturnType="Collection(BotsAndProdsModel.Authorize_Result)">
+            <Parameter Name="login" Mode="In" Type="String" />
+            <Parameter Name="pass" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Change_Amount_Of_Product">
+            <Parameter Name="id" Mode="In" Type="Int64" />
+            <Parameter Name="Amount" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Get_Customer" ReturnType="Collection(BotsAndProdsModel.Get_Customer_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Get_Customers" ReturnType="Collection(BotsAndProdsModel.Get_Customers_Result)" />
+          <FunctionImport Name="Get_Product_By_ID" ReturnType="Collection(BotsAndProdsModel.Get_Product_By_ID_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Get_Products" ReturnType="Collection(BotsAndProdsModel.Get_Products_Result)" />
+          <FunctionImport Name="Get_Request_By_Client_And_Date" ReturnType="Collection(BotsAndProdsModel.Get_Request_By_Client_And_Date_Result)">
+            <Parameter Name="ClientId" Mode="In" Type="Int32" />
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="Get_User_ById" ReturnType="Collection(BotsAndProdsModel.Get_User_ById_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Get_Users" ReturnType="Collection(BotsAndProdsModel.Get_Users_Result)" />
+          <FunctionImport Name="Insert_Customer">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="phoneNumber" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Insert_Product">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="Price" Mode="In" Type="Single" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="Authorize_Result">
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Login" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="Get_Customer_Result">
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="12" />
+        </ComplexType>
+        <ComplexType Name="Get_Customers_Result">
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="12" />
+        </ComplexType>
+        <ComplexType Name="Get_Product_By_ID_Result">
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+          <Property Type="Single" Name="Price" Nullable="false" />
+          <Property Type="Int32" Name="Amount" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Get_Products_Result">
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+          <Property Type="Single" Name="Price" Nullable="false" />
+          <Property Type="Int32" Name="Amount" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Get_Request_By_Client_And_Date_Result">
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="Name1" Nullable="false" MaxLength="100" />
+          <Property Type="Single" Name="Price" Nullable="false" />
+          <Property Type="Int32" Name="Amount" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Get_User_ById_Result">
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Login" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="Get_Users_Result">
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Login" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище BotsAndProdsModelContainer" CdmEntityContainer="BotsAndProdsEntities1">
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="BotsAndProdsModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnswerOfSystem">
+            <EntityTypeMapping TypeName="BotsAndProdsModel.AnswerOfSystem">
+              <MappingFragment StoreEntitySet="AnswerOfSystem">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Request" ColumnName="Request" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customer">
+            <EntityTypeMapping TypeName="BotsAndProdsModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Question_Of_Customer">
+            <EntityTypeMapping TypeName="BotsAndProdsModel.Question_Of_Customer">
+              <MappingFragment StoreEntitySet="Question_Of_Customer">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Request">
+            <EntityTypeMapping TypeName="BotsAndProdsModel.Request">
+              <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="DateOfReq" ColumnName="DateOfReq" />
+                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+                <ScalarProperty Name="IsDelivered" ColumnName="IsDelivered" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="BotsAndProdsModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Authorize" FunctionName="Хранилище BotsAndProdsModel.Authorize">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BotsAndProdsModel.Authorize_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Change_Amount_Of_Product" FunctionName="Хранилище BotsAndProdsModel.Change_Amount_Of_Product" />
+          <FunctionImportMapping FunctionImportName="Get_Customer" FunctionName="Хранилище BotsAndProdsModel.Get_Customer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BotsAndProdsModel.Get_Customer_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_Customers" FunctionName="Хранилище BotsAndProdsModel.Get_Customers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BotsAndProdsModel.Get_Customers_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_Product_By_ID" FunctionName="Хранилище BotsAndProdsModel.Get_Product_By_ID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BotsAndProdsModel.Get_Product_By_ID_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_Products" FunctionName="Хранилище BotsAndProdsModel.Get_Products">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BotsAndProdsModel.Get_Products_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_Request_By_Client_And_Date" FunctionName="Хранилище BotsAndProdsModel.Get_Request_By_Client_And_Date">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BotsAndProdsModel.Get_Request_By_Client_And_Date_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Name1" ColumnName="Name1" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_User_ById" FunctionName="Хранилище BotsAndProdsModel.Get_User_ById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BotsAndProdsModel.Get_User_ById_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_Users" FunctionName="Хранилище BotsAndProdsModel.Get_Users">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BotsAndProdsModel.Get_Users_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Insert_Customer" FunctionName="Хранилище BotsAndProdsModel.Insert_Customer" />
+          <FunctionImportMapping FunctionImportName="Insert_Product" FunctionName="Хранилище BotsAndProdsModel.Insert_Product" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище BotsAndProdsModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "BotsAndProds.dbo.AnswerOfSystem" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="AnswerOfSystem">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Request" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Request" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "BotsAndProds.dbo.Customer" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="12" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Price" Type="real" Nullable="false" />
+    <Property Name="Amount" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "BotsAndProds.dbo.Question_Of_Customer" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="Question_Of_Customer">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Question" />
+      <PropertyRef Name="Answer" />
+    </Key>
+    <Property Name="ID" Type="bigint" Nullable="false" />
+    <Property Name="Question" Type="varchar(max)" Nullable="false" />
+    <Property Name="Answer" Type="bigint" Nullable="false" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "BotsAndProds.dbo.Request" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="Request">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Customer" />
+      <PropertyRef Name="Product" />
+      <PropertyRef Name="Amount" />
+      <PropertyRef Name="DateOfReq" />
+      <PropertyRef Name="IsConfirmed" />
+      <PropertyRef Name="IsDelivered" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Customer" Type="bigint" Nullable="false" />
+    <Property Name="Product" Type="bigint" Nullable="false" />
+    <Property Name="Amount" Type="int" Nullable="false" />
+    <Property Name="DateOfReq" Type="date" Nullable="false" />
+    <Property Name="IsConfirmed" Type="tinyint" Nullable="false" />
+    <Property Name="IsDelivered" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "BotsAndProds.dbo.User" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Login" />
+      <PropertyRef Name="Password" />
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <Function Name="Authorize" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="varchar" Mode="In" />
+    <Parameter Name="pass" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="Change_Amount_Of_Product" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="bigint" Mode="In" />
+    <Parameter Name="Amount" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Get_Customer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Get_Customers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="Get_Product_By_ID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Get_Products" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="Get_Request_By_Client_And_Date" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ClientId" Type="int" Mode="In" />
+    <Parameter Name="date" Type="date" Mode="In" />
+  </Function>
+  <Function Name="Get_User_ById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Get_Users" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="Insert_Customer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="phoneNumber" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="Insert_Product" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="Price" Type="real" Mode="In" />
+  </Function>
+  <EntityContainer Name="Хранилище BotsAndProdsModelContainer">
+    <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AnswerOfSystem" EntityType="Self.AnswerOfSystem" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [AnswerOfSystem].[ID] AS [ID], 
+    [AnswerOfSystem].[Request] AS [Request]
+    FROM [dbo].[AnswerOfSystem] AS [AnswerOfSystem]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Customer" EntityType="Self.Customer" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Customer].[ID] AS [ID], 
+    [Customer].[Name] AS [Name], 
+    [Customer].[PhoneNumber] AS [PhoneNumber]
+    FROM [dbo].[Customer] AS [Customer]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Question_Of_Customer" EntityType="Self.Question_Of_Customer" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Question_Of_Customer].[ID] AS [ID], 
+    [Question_Of_Customer].[Question] AS [Question], 
+    [Question_Of_Customer].[Answer] AS [Answer]
+    FROM [dbo].[Question_Of_Customer] AS [Question_Of_Customer]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Request" EntityType="Self.Request" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Request].[ID] AS [ID], 
+    [Request].[Customer] AS [Customer], 
+    [Request].[Product] AS [Product], 
+    [Request].[Amount] AS [Amount], 
+    [Request].[DateOfReq] AS [DateOfReq], 
+    [Request].[IsConfirmed] AS [IsConfirmed], 
+    [Request].[IsDelivered] AS [IsDelivered]
+    FROM [dbo].[Request] AS [Request]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="User" EntityType="Self.User" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [User].[ID] AS [ID], 
+    [User].[Login] AS [Login], 
+    [User].[Password] AS [Password], 
+    [User].[Name] AS [Name]
+    FROM [dbo].[User] AS [User]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

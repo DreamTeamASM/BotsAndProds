@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BotsAndProdsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Price" Type="Single" Nullable="false" />
+    <Property Name="Amount" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AnswerOfSystem">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Request" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Request" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Question_Of_Customer">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Question" />
+      <PropertyRef Name="Answer" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" />
+    <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Answer" Type="Int64" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Request">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Customer" />
+      <PropertyRef Name="Product" />
+      <PropertyRef Name="Amount" />
+      <PropertyRef Name="DateOfReq" />
+      <PropertyRef Name="IsConfirmed" />
+      <PropertyRef Name="IsDelivered" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Customer" Type="Int64" Nullable="false" />
+    <Property Name="Product" Type="Int64" Nullable="false" />
+    <Property Name="Amount" Type="Int32" Nullable="false" />
+    <Property Name="DateOfReq" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="IsConfirmed" Type="Byte" Nullable="false" />
+    <Property Name="IsDelivered" Type="Byte" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Login" />
+      <PropertyRef Name="Password" />
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="BotsAndProdsEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Products" EntityType="Self.Products" />
+    <EntitySet Name="AnswerOfSystem" EntityType="Self.AnswerOfSystem" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" />
+    <EntitySet Name="Question_Of_Customer" EntityType="Self.Question_Of_Customer" />
+    <EntitySet Name="Request" EntityType="Self.Request" />
+    <EntitySet Name="User" EntityType="Self.User" />
+    <FunctionImport Name="Authorize" ReturnType="Collection(BotsAndProdsModel.Authorize_Result)">
+      <Parameter Name="login" Mode="In" Type="String" />
+      <Parameter Name="pass" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Change_Amount_Of_Product">
+      <Parameter Name="id" Mode="In" Type="Int64" />
+      <Parameter Name="Amount" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Get_Customer" ReturnType="Collection(BotsAndProdsModel.Get_Customer_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Get_Customers" ReturnType="Collection(BotsAndProdsModel.Get_Customers_Result)" />
+    <FunctionImport Name="Get_Product_By_ID" ReturnType="Collection(BotsAndProdsModel.Get_Product_By_ID_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Get_Products" ReturnType="Collection(BotsAndProdsModel.Get_Products_Result)" />
+    <FunctionImport Name="Get_Request_By_Client_And_Date" ReturnType="Collection(BotsAndProdsModel.Get_Request_By_Client_And_Date_Result)">
+      <Parameter Name="ClientId" Mode="In" Type="Int32" />
+      <Parameter Name="date" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="Get_User_ById" ReturnType="Collection(BotsAndProdsModel.Get_User_ById_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Get_Users" ReturnType="Collection(BotsAndProdsModel.Get_Users_Result)" />
+    <FunctionImport Name="Insert_Customer">
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="phoneNumber" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Insert_Product">
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="Price" Mode="In" Type="Single" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="Authorize_Result">
+    <Property Type="Int64" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Login" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="Get_Customer_Result">
+    <Property Type="Int64" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="12" />
+  </ComplexType>
+  <ComplexType Name="Get_Customers_Result">
+    <Property Type="Int64" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="12" />
+  </ComplexType>
+  <ComplexType Name="Get_Product_By_ID_Result">
+    <Property Type="Int64" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+    <Property Type="Single" Name="Price" Nullable="false" />
+    <Property Type="Int32" Name="Amount" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="Get_Products_Result">
+    <Property Type="Int64" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+    <Property Type="Single" Name="Price" Nullable="false" />
+    <Property Type="Int32" Name="Amount" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="Get_Request_By_Client_And_Date_Result">
+    <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="12" />
+    <Property Type="String" Name="Name1" Nullable="false" MaxLength="100" />
+    <Property Type="Single" Name="Price" Nullable="false" />
+    <Property Type="Int32" Name="Amount" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="Get_User_ById_Result">
+    <Property Type="Int64" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Login" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="Get_Users_Result">
+    <Property Type="Int64" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Login" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+  </ComplexType>
+</Schema>
